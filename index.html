@@ -1,0 +1,355 @@
+<!DOCTYPE html lang="en">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="MeshSplat: Generalizable Sparse-View Surface Reconstruction via Gaussian Splatting">
+  <meta name="keywords" content="MeshSplat">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MeshSplat: Generalizable Sparse-View Surface Reconstruction via Gaussian Splatting</title>
+
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="./static/css/bootstrap-4.4.1.css">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <link rel="stylesheet" href="./static/css/dics.original.css">
+  <script src="./static/js/event_handler.js"></script>
+  <script src="./static/js/dics.original.js"></script>
+  <script src="./static/js/video-comparison.js"></script>
+
+  <style>
+        .container {
+            width: 80%; 
+            margin: auto; 
+        }
+
+        .responsive-video {
+            width: 45%;
+            height: auto; 
+        }
+    </style>
+
+    <style>
+        .fixed-size-video {
+            width: 940px; 
+            height: auto; 
+    </style>
+
+    <style>
+        .fixed-size-video-small {
+            width: auto; 
+            height: 300px; 
+        }
+        .rounded-corners {
+    border-radius: 10px; 
+  }
+    </style>
+    <style>
+        .video-container {
+            height: 600px; 
+            width: auto;   
+        }
+    </style>
+    <style>
+        .video-container {
+            display: flex;         
+            justify-content: center; 
+        }
+        .video-container video {
+            width: 30%;          
+            margin: 5px;          
+        }
+    </style>
+
+<style>
+  .video-row {
+    display: flex;
+    justify-content: space-around; 
+    margin-bottom: 20px; 
+  }
+
+  .fixed-size-video-small {
+    width: 500px; 
+            height: 200; 
+  }
+  .fixed-size-video-small-two {
+    width: 500px; 
+            height: 200; 
+  }
+  .fixed-size-video-small-three {
+    width: 500px; 
+            height: 200; 
+  }
+  
+
+  @media screen and (max-width: 768px) {
+
+    .video-row {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<style>
+        .text-container {
+            max-width: 1070px; 
+            margin: 0 auto;    
+            padding: 20px;     
+        }
+        
+    </style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">MeshSplat: Generalizable Sparse-View Surface Reconstruction via Gaussian Splatting</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://github.com/HanzhiChang/">Hanzhi Chang*</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="https://ruijiezhu94.github.io/ruijiezhu/">Ruijie Zhu*</a><sup>1,2</sup>,</span>
+            <span class="author-block"><a href="https://scholar.google.com.hk/citations?user=VbY0304AAAAJ&hl=zh-CN&oi=ao/">Wenjie Chang</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="https://mulinyu.github.io/">Mulin Yu</a><sup>2</sup>,</span>
+            <span class="author-block"><a href="https://rosetta-leong.github.io/">Yanzhe Liang</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="https://github.com/peoplelu/">Jiahao Lu</a><sup>1</sup></span>
+            <span class="author-block"><a href="https://github.com/Charlie839242/">Zhuoyuan Li</a><sup>1</sup></span>
+            <span class="author-block"><a href="https://staff.ustc.edu.cn/~tzzhang/">Tianzhu Zhang</a><sup>1</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup> University of Science and Technology of China</span>,
+            <span class="author-block"><sup>2</sup> Shanghai Artificial Intelligence Laboratory</span>
+
+          </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+
+
+
+<div class="columns is-centered has-text-centered">
+
+      <div class="column is-four-fifths">
+        <div class="text-container">
+        <p style="font-size:25px;">
+          <b>TL;DR: </b>We introduce <b>MeshSplat</b>, a generalizable sparse-view surface reconstruction framework via Gaussian splatting.
+        </p>
+        </div>
+
+      <div class="hero-body">
+          <div class="container" style="text-align:center">
+
+    
+    
+            <video class="fixed-size-video rounded-corners" id="supp video" autoplay loop muted playsinline controls>
+              <source src="./static/images/meshsplat/demo.mp4" type="video/mp4">
+
+            </video>
+            <div class="text-container">
+            <p>
+              Meshsplat enables high-quality surface reconstruction from sparse-view images.
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+
+        
+      </div>
+    </div>
+<br>
+
+
+<div class="columns is-centered has-text-centered">
+    <h2 class="title is-3">Method Overview</h2>
+</div>
+
+
+
+<div class="container is-max-desktop">
+
+      <div class="hero-body">
+        <div class="content has-text-justified">
+
+          <img src="./static/images/meshsplat/method.png"> 
+
+          <p>
+            <b>Overview of MeshSplat.</b> Taken a pair of images as input, MeshSplat 
+            begins with a multi-view backbone to extract feature maps for each view. 
+            After that, we construct per-view cost volumes via the plane-sweeping method. 
+            We use these cost volumes to generate coarse depth maps in order to get 3D 
+            point clouds and apply our proposed Weighted Chamfer Distance Loss. Then 
+            we feed cost volumes and feature maps into our gaussian prediction network, 
+            which consist of a depth refinement network and a normal prediction network, 
+            to obtain pixel-aligned 2DGS. Finally we can apply novel view synthesis and 
+            reconstruct the scene mesh using these 2DGS.
+          </p>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+<br><br>
+
+
+<section class="hero teaser">
+
+ 
+  
+  <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3">Reconstruction Results</h2>
+  </div>
+  <br>
+  <br></br>
+  
+  <div class="container is-max-desktop">
+  
+    <div class="hero-body" style="margin-top: -60px;">
+      
+      <div class="container  is-max-desktop" style="text-align:left; margin-top: 30px;">
+
+        <div class="content has-text-centered">
+          <ul class="nav nav-tabs nav-fill nav-justified" id="object-scale-recon_re10k">
+              <li class="nav-item">
+                <a class="nav-link active" onclick="objectSceneEventRE10K(0)">Scene 1</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="objectSceneEventRE10K(1)">Scene 2</a>
+              </li>
+          </ul>
+          <div class="b-dics" style="font-weight: 600;">
+              <img src="./static/images/meshsplat/re10k_scene1_mvsplat.png" alt="MVSplat">
+              <img src="./static/images/meshsplat/re10k_scene1_meshsplat.png" alt="MeshSplat">
+
+          </div>
+        <strong><p>
+            Reconstruction results on Re10K dataset.
+          </p></strong>
+      </div>    
+    </div>
+  
+  </div>
+  </div>
+  
+  
+  <div class="container is-max-desktop">
+  
+    <div class="hero-body" style="margin-top: -60px;">
+      
+      <div class="container  is-max-desktop" style="text-align:left; margin-top: 30px;">
+  
+        <div class="content has-text-centered">
+          <ul class="nav nav-tabs nav-fill nav-justified" id="object-scale-recon_scannet">
+              <li class="nav-item">
+                <a class="nav-link active" onclick="objectSceneEvent_Scannet(0)">Scene 1</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="objectSceneEvent_Scannet(1)">Scene 2</a>
+              </li>
+          </ul>
+          <div class="b-dics" style="font-weight: 600;">
+              <img src="./static/images/meshsplat/scannet_scene1_mvsplat.png" alt="MVSplat">
+              <img src="./static/images/meshsplat/scannet_scene1_meshsplat.png" alt="MeshSplat">
+
+          </div>
+          <strong><p>
+            Reconstruction results on Scannet dataset.
+          </p></strong>
+      </div>    
+    </div>
+  
+  </div>
+  </div>
+      
+  </section>
+</section>
+
+
+<section class="hero teaser">
+
+<div class="container is-max-desktop">
+
+  <div class="hero-body">
+    <div class="content has-text-centered">
+
+      <img src="static/images/meshsplat/geometry.png"> 
+
+      <p>
+        Visualizations of output depth and normal maps, confidence maps used in WCD loss 
+        and kappa maps used in normal loss. The confidence maps reflect the unconfident 
+        matching areas like texture-less areas and non-overlapped areas between the two 
+        views. For kappa maps, areas with higher uncertainty typically correspond to object boundaries.
+      </p>
+
+    </div>
+  </div>
+</div>
+
+<br><br>
+
+
+    
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            We thank the authors of <a href="https://city-super.github.io/GSDF/">GSDF</a> and <a href="https://nerfies.github.io/">Nerfies</a> that kindly open sourced the template of this website.
+          </p>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>
