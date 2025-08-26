@@ -59,6 +59,7 @@
         .fixed-size-video {
             width: 940px; 
             height: auto; 
+        }
     </style>
 
     <style>
@@ -152,6 +153,49 @@
           </div>
           <div class="column has-text-centered">
             <div class="publication-links">
+              <!-- Arxiv PDF link -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2508.17811.pdf" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+              <!-- ArXiv abstract Link -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2508.17811" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+              <!-- Supplementary PDF link -->
+              <!-- <span class="link-block">
+                <a href="static/pdfs/supplementary_material.pdf" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Supplementary</span>
+                </a>
+              </span> -->
+
+              <!-- Github link -->
+              <span class="link-block">
+                <a href="https://github.com/HanzhiChang/MeshSplat" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
             </div>
 
           </div>
@@ -165,39 +209,30 @@
 
 <section class="hero teaser">
 
-
-
 <div class="columns is-centered has-text-centered">
+  <div class="column is-four-fifths">
+    <div class="text-container">
+      <p style="font-size:25px;">
+        <b>TL;DR: </b>We introduce <b>MeshSplat</b>, a generalizable sparse-view surface reconstruction framework via Gaussian splatting.
+      </p>
+    </div>
 
-      <div class="column is-four-fifths">
+    <div class="hero-body">
+      <div class="container" style="text-align:center">
+
+        <video class="fixed-size-video rounded-corners" id="supp video" autoplay loop muted playsinline controls>
+          <source src="./static/images/meshsplat/demo.mp4" type="video/mp4">
+
+        </video>
         <div class="text-container">
-        <p style="font-size:25px;">
-          <b>TL;DR: </b>We introduce <b>MeshSplat</b>, a generalizable sparse-view surface reconstruction framework via Gaussian splatting.
-        </p>
+          <p>
+            Meshsplat enables high-quality surface reconstruction from sparse-view images.
+          </p>
         </div>
-
-      <div class="hero-body">
-          <div class="container" style="text-align:center">
-
-    
-    
-            <video class="fixed-size-video rounded-corners" id="supp video" autoplay loop muted playsinline controls>
-              <source src="./static/images/meshsplat/demo.mp4" type="video/mp4">
-
-            </video>
-            <div class="text-container">
-            <p>
-              Meshsplat enables high-quality surface reconstruction from sparse-view images.
-            </p>
-          </div>
-        </div>
-      </div>
-
-
-
-        
       </div>
     </div>
+  </div>
+</div>
 <br>
 
 
@@ -208,27 +243,26 @@
 
 
 <div class="container is-max-desktop">
+  <div class="hero-body">
+    <div class="content has-text-justified">
 
-      <div class="hero-body">
-        <div class="content has-text-justified">
+      <img src="./static/images/meshsplat/method.png"> 
 
-          <img src="./static/images/meshsplat/method.png"> 
+      <p>
+        <b>Overview of MeshSplat.</b> Taken a pair of images as input, MeshSplat 
+        begins with a multi-view backbone to extract feature maps for each view. 
+        After that, we construct per-view cost volumes via the plane-sweeping method. 
+        We use these cost volumes to generate coarse depth maps in order to get 3D 
+        point clouds and apply our proposed Weighted Chamfer Distance Loss. Then 
+        we feed cost volumes and feature maps into our gaussian prediction network, 
+        which consist of a depth refinement network and a normal prediction network, 
+        to obtain pixel-aligned 2DGS. Finally we can apply novel view synthesis and 
+        reconstruct the scene mesh using these 2DGS.
+      </p>
 
-          <p>
-            <b>Overview of MeshSplat.</b> Taken a pair of images as input, MeshSplat 
-            begins with a multi-view backbone to extract feature maps for each view. 
-            After that, we construct per-view cost volumes via the plane-sweeping method. 
-            We use these cost volumes to generate coarse depth maps in order to get 3D 
-            point clouds and apply our proposed Weighted Chamfer Distance Loss. Then 
-            we feed cost volumes and feature maps into our gaussian prediction network, 
-            which consist of a depth refinement network and a normal prediction network, 
-            to obtain pixel-aligned 2DGS. Finally we can apply novel view synthesis and 
-            reconstruct the scene mesh using these 2DGS.
-          </p>
-
-        </div>
-      </div>
     </div>
+  </div>
+</div>
 
 
 
@@ -343,7 +377,6 @@
         <div class="content">
           <p>
             We thank the authors of <a href="https://city-super.github.io/GSDF/">GSDF</a> and <a href="https://nerfies.github.io/">Nerfies</a> that kindly open sourced the template of this website.
-          </p>
           </p>
         </div>
       </div>
